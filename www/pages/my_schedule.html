@@ -1,0 +1,113 @@
+<ion-view title="Моё расписание" ng-controller="myController">
+
+    <!--
+    <ion-header-bar  class="bar  bar-subheader" style="background-color: #699cf0;">
+        <h2 class="title"  style="color:white;" ng-show="mySchedules.length > 0">{{mySchedules[0].title}}</h2>
+        <button ng-show="isUpdateShow()" class="button icon ion-android-refresh button-clear" style="color:white;" ng-click="update()"></button>
+    </ion-header-bar>-->
+
+    <ion-content class="center" ng-show="isLoadingShow()">
+    <div class="row" >
+        <div class="col text-center">
+            <ion-spinner></ion-spinner>
+        </div>
+    </div>
+    </ion-content >
+
+    <ion-content ng-show="!isLoadingShow()">
+
+        <ul style="margin:0px; " class="list list-borderless">
+            <li class="item">
+                <h2  ng-show="mySchedules.length > 0">
+                    <strong>
+                    {{mySchedules[0].title}}
+                    </strong>
+                </h2>
+            </li>
+        </ul>
+
+
+        <!--<div class="card">
+            <div class="item item-text-wrap">
+                Сеть не подключена, расписание не синхронизировано, возможны отличия.
+                <a href="#">Обновить</a>
+            </div>
+        </div>-->
+
+        <div class="card" ng-show="isEmptyNoteShow()">
+            <div nowrap class="item item-text-wrap">
+                Добро пожаловать!
+                На данный момент Вы не имеете своего расписания. Пожалуйста, выберите его в
+                <span style="cursor:pointer; color:#0a9ec7" ui-sref="group_schedule"> расписании групп</span> <i class="icon ion-ios-people-outline"></i>
+                или в
+                <span nowrap style="cursor:pointer; color:#0a9ec7" ui-sref="lecturer_schedule">расписании преподавателей</span> <i class="icon ion-ios-person-outline"></i>.
+            </div>
+        </div>
+
+
+
+        <ion-list class="list-borderless" ng-repeat="day in data.days" style="margin:0px; !important;">
+
+
+            <!--style="background-color: inherit; border: 0px; margin-top:5px;"-->
+            <ion-item  ng-show="isScheduleListShow()" id="{{'day' + day.id}}" class="item">
+
+
+                    <strong>{{day.id | currentDate}}</strong>
+                    <strong  ng-show="day.id == data.currentDay.id">, сегодня</strong>
+
+            </ion-item>
+
+
+           <!-- <ion-item ng-show="getSchedulesForDay(day).length == 0 && isScheduleListShow()">Занятий нет</ion-item>-->
+
+            <ion-item style="margin-left:20px;" ng-show="getSchedulesForDay(day).length == 0 && isScheduleListShow()">Занятий нет</ion-item>
+
+
+            <ion-item  style="margin-left:20px;" ng-show="isScheduleListShow()" ng-repeat="schedule in getSchedulesForDay(day)">
+                <h2>{{schedule.weektypename + '. ' + schedule.tutorialtypename + '. ' + 'с ' + schedule.tutorialname}}</h2>
+
+
+                <p>
+                    <!--<i class="icon ion-ios-clock-outline"   ></i>-->
+                    <span>
+                        {{'с ' + schedule.starttime + ' до ' + schedule.endtime}}
+
+                    </span>
+                    <!--<i class="icon ion-ios-location-outline"></i>-->
+                    <span>
+                    {{' в ' + schedule.auditoriumname + ' ' + schedule.buildingname}}
+                    </span>
+
+
+                        <button class="button-clear icon-corner1" ng-click="addScheduleToCalendar(schedule)">
+                            <i class="icon  ion-ios-clock-outline"> </i>
+                        </button>
+                        <button class="button-clear icon-corner2" ng-click="showMapPopup(schedule.buildingaddress)">
+                            <i class="icon ion-ios-location-outline" ></i>
+                        </button>
+
+                </p>
+
+                <p  ng-show="mySchedules[0].subtitle == 'group'">
+                    {{schedule.fullname}}
+                </p>
+                <p ng-show="mySchedules[0].subtitle == 'lecturer'">
+                    {{schedule.groupcode}}
+                </p>
+
+            </ion-item>
+        </ion-list>
+
+        <!--
+        <button ng-show="isScheduleListShow()" class="button icon ion-ios-calendar-outline button-clear" ng-click="copyToCalendar()">Скопировать в календарь</button>
+        -->
+        <div style="height: 50px;">
+        </div>
+
+    </ion-content>
+
+
+
+
+</ion-view>

@@ -1,0 +1,93 @@
+<ion-view title="Расписание аудитории" ng-controller="auditoriumController"  >
+
+
+    <!--<ion-header-bar class="bar  bar-subheader item-input-inset" style="background-color: #699cf0;">
+        <label class="item-input-wrapper" style="background-color:white;">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" autocorrect="off" onclick="this.setSelectionRange(0, this.value.length)" autocomplete="off" placeholder="Введите номер аудитории" ng-change="searchAuditoriums()" ng-model-options="{debounce: 200}" ng-model="data.search.template">
+            <button ng-show="isUpdateShow()" class="button icon ion-android-refresh button-clear" style="color:white;" ng-click="update()"></button>
+        </label>
+    </ion-header-bar>-->
+
+
+    <ion-content>
+
+        <ul class="list list-borderless" style="margin-bottom: 5px; margin-top: 0px;">
+            <li>
+                <label class="item item-input shadow-bottom">
+                    <i class="icon ion-ios-search placeholder-icon"></i>
+                    <input type="search" autocorrect="off" onclick="this.setSelectionRange(0, this.value.length)" autocomplete="off" placeholder="Введите номер аудитории" ng-change="searchAuditoriums()" ng-model-options="{debounce: 200}" ng-model="data.search.template">
+                </label>
+            </li>
+            <li  ng-show="isSearchListShow()" ng-repeat="auditorium in data.auditoriums" ng-click="setAuditorium(auditorium)">
+                <a class="item">
+                    <span style="margin-left:18px;">
+                        {{auditorium.num + ' ' + auditorium.buildingshortname}}
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="row " ng-show="isLoadingShow()">
+            <div class="col text-center">
+                <ion-spinner></ion-spinner>
+            </div>
+        </div>
+
+        <ul class="list list-borderless" ng-show="isRecentListShow()  && data.recentSchedules.length > 0">
+            <li class="item">
+                <strong>Недавние</strong>
+            </li>
+            <li ng-repeat="recentSchedule in data.recentSchedules" >
+                <a class="item"  ng-click="goToRecentSchedule(recentSchedule);">
+                    <span style="margin-left: 15px;">
+                    {{recentSchedule.title}}
+                    </span>
+                    <p style="margin-left: 15px;">
+                        {{recentSchedule.date | friendlyDate}}
+                    </p>
+                </a>
+            </li>
+        </ul>
+
+        <ion-list class="list-borderless" ng-repeat="day in data.days" style="margin:0px; !important;">
+
+            <ion-item ng-show="isScheduleListShow()" id="{{'day' + day.id}}" class="item">
+
+                    <strong>{{day.id | currentDate}}</strong>
+                    <strong  ng-show="day.id == data.currentDay.id">, сегодня</strong>
+
+            </ion-item>
+
+            <ion-item style="margin-left:20px;" ng-show="getSchedulesForDay(day).length == 0 && isScheduleListShow()">Занятий нет</ion-item>
+
+            <ion-item style="margin-left:20px;" ng-show="isScheduleListShow()" ng-repeat="schedule in getSchedulesForDay(day)">
+                <h2>{{schedule.tutorialname}}</h2>
+                <p>
+                    <!--<i class="icon ion-ios-clock-outline"   ></i>-->
+                    <span>
+                        {{schedule.weektypename + '. ' + schedule.tutorialtypename + '. ' + 'с ' + schedule.starttime + ' до ' + schedule.endtime}}
+
+                    </span>
+                    <!--<i class="icon ion-ios-location-outline"></i>-->
+                    <span>
+                    {{' в ' + schedule.auditoriumname + ' ' + schedule.buildingname}}
+                    </span>
+
+                    <button class="button-clear icon-corner1" ng-click="addScheduleToCalendar(schedule)">
+                        <i class="icon  ion-ios-clock-outline"> </i>
+                    </button>
+                    <button class="button-clear icon-corner2" ng-click="showMapPopup(schedule.buildingaddress)">
+                        <i class="icon ion-ios-location-outline" ></i>
+                    </button>
+                </p>
+
+                <p>
+                    {{schedule.fullname + ' ' + schedule.groupcode}}
+                </p>
+            </ion-item>
+        </ion-list>
+        <div style="height: 50px;">
+        </div>
+    </ion-content>
+</ion-view>

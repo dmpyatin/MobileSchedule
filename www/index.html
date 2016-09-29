@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script src="lib/momentjs/moment-with-locales.min.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngcordova/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/controllers/groupController.js"></script>
+    <script src="js/controllers/lecturerController.js"></script>
+    <script src="js/controllers/auditoriumController.js"></script>
+    <script src="js/controllers/mapController.js"></script>
+    <script src="js/controllers/myController.js"></script>
+    <script src="js/controllers/settingsController.js"></script>
+    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/freeController.js"></script>
+    <script src="js/services.js"></script>
+
+</head>
+<body  ng-cloak class="ng-cloak">
+
+<ion-pane>
+
+    <ion-side-menus>
+
+        <ion-side-menu-content ng-controller="mainController">
+            <ion-nav-bar  class="nav-title-slide-ios bar-positive shadow-bottom" style="background-color: #3f51b5" align-title="center">
+
+                <ion-nav-back-button class="button-icon ion-arrow-left-c">
+                </ion-nav-back-button>
+
+                <ion-nav-buttons side="left">
+                    <button ng-show="isUpdateShow()" class="button icon ion-ios-refresh-outline button-clear"  ng-click="updateButtonPress()"></button>
+                </ion-nav-buttons>
+
+                <ion-nav-buttons side="right">
+                    <button class="button button-icon button-clear ion-navicon" ng-click="showMenu()">
+                    </button>
+                </ion-nav-buttons>
+
+            </ion-nav-bar>
+
+            <ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+        </ion-side-menu-content>
+
+        <ion-side-menu side="right">
+            <ion-header-bar class="bar bar-header bar-positive shadow-bottom" align-title="center">
+                <h1 class="title">Меню</h1>
+            </ion-header-bar>
+            <ion-content has-header="true">
+                <ul class="list list-borderless" >
+                    <li>
+                        <a class="item" menu-close nav-clear href="#/my_schedule">
+                            <i class="icon ion-ios-clock-outline" style="font-size:20px;"></i>
+                            Мое расписание
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item" menu-close href="#/group_schedule">
+                            <i class="icon ion-ios-people-outline" style="font-size:20px;"></i>
+                            Расписание группы
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item" menu-close href="#/lecturer_schedule">
+                            <i class="icon ion-ios-person-outline" style="font-size:20px;"></i>
+                            Расписание преподавателя
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item" menu-close href="#/auditorium_schedule">
+                            <i class="icon ion-ios-home-outline" style="font-size:20px;"></i>
+                            Расписание аудитории
+                        </a>
+                    </li>
+                    <li>
+                        <a class="item" menu-close href="#/settings_home">
+                            <i class="icon ion-ios-gear-outline" style="font-size:20px;"></i>
+                            Настройки
+                        </a>
+                    </li>
+                </ul>
+            </ion-content>
+        </ion-side-menu>
+    </ion-side-menus>
+
+
+
+</ion-pane>
+
+
+</body>
+</html>

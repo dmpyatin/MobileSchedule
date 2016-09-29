@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="com.ionicframework.myapp259509" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Мое расписание</name>
+  <description>
+        Расписание занятий студентов и преподавателей ПетрГУ
+    </description>
+  <author email="dmpyatin@gmail.com" href="https://vk.com/id95095127">
+      Дмитрий Пятин
+    </author>
+
+    <icon src="www/img/mipmap-mdpi/ic_launcher.png" platform="android" density="ldpi" />
+    <icon src="www/img/mipmap-mdpi/ic_launcher.png" platform="android" density="mdpi" />
+    <icon src="www/img/mipmap-hdpi/ic_launcher.png" platform="android" density="hdpi" />
+    <icon src="www/img/mipmap-xhdpi/ic_launcher.png" platform="android" density="xhdpi" />
+
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="BackupWebStorage" value="none"/>
+  <feature name="StatusBar">
+    <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+</widget>
